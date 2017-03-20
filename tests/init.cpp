@@ -24,16 +24,6 @@ SCENARIO("copy")
 	
 }
 
-SCENARIO("matrix fill", "[fill]")
-{
-	matrix b("matrix.txt");
-	REQUIRE(b.rows() == 4);
-	REQUIRE(b.columns() == 4);
-	for (int i = 0; i < b.rows(); i++)
-		for (int j = 0; j < b.columns(); j++)
-			REQUIRE(b.elem(i, j) == 1);
-
-}
 SCENARIO("+")
 {
 	matrix a ("matrix.txt");
