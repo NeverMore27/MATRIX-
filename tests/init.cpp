@@ -35,3 +35,25 @@ SCENARIO("=") {
 	matrix f = a;
 	REQUIRE(f == a);
 }
+
+SCENARIO("+")
+{
+	matrix a(4, 4);
+	std::ifstream("matrix.txt")>>a;
+	matrix b(4, 4);
+	std:: ifstream("matrix2.txt")>>b;
+	matrix c(4,4);
+	std::ifstream("matrix3.txt")>>c;	
+	REQUIRE(a + b== c);
+}
+
+SCENARIO("*") 
+{
+	matrix a(4, 4);
+	std::ifstream("matrix.txt")>>a;
+	matrix b(4, 4);
+	std:: ifstream("matrix2.txt")>>b;
+	matrix c;
+	std::ifstream("matrix3.txt")>>c;
+	REQUIRE(a*b==c);
+}
