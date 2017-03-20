@@ -1,6 +1,6 @@
 #include "matrix.hpp"
 
-matrix:: matrix ()
+matrix::matrix()
 {
 	this->matr = nullptr;
 	n = m = 0;
@@ -31,7 +31,7 @@ matrix::matrix(matrix &ob)
 		for (int j = 0; j < m; j++)
 			matr[i][j] = ob.matr[i][j];
 };
-matrix:: ~matrix ()
+matrix:: ~matrix()
 {
 	if (matr != nullptr)
 	{
@@ -51,9 +51,25 @@ void matrix::print(ostream &out)const
 		out << "\n";
 	}
 }
-matrix::matrix(std::string name)
+int Matrix::columns()
 {
+	return n;
+}
 
+int Matrix::rows()
+{
+	return m;
+}
+istream& operator >> (istream& in, const matrix& c)
+{
+	for (int i = 0; i < c.rows(); i++)
+		for (int j = 0; j < c.colomns(); j++)
+			in>> c.matr[i][j];
+	return in;
+}
+
+matrix::matrix(string name)
+{
 	ifstream file(name);
 	int space = 0, num = 0;
 	double h;
@@ -84,31 +100,19 @@ matrix::matrix(std::string name)
 			file >> matr[i][j];
 	file.close();
 }
-matrix matrix:: operator+(matrix b)const
+
+ostream& operator << (ostream& out, const matrix& c)
 {
-
-	matrix c(n, m);
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++)
-			c.matr[i][j] = matr[i][j] + b.matr[i][j];
-
-	return c;
-
+	for (int i = 0; i <c.rows(); i++) {
+		for (int j = 0; j < c.columns; j++) {
+			out << c.matr[i][j] << " ";
+		}
+	}
+	out << "\n";
+	return out;
 }
-matrix matrix:: operator*(matrix b)const
-{
 
-	matrix c(n, b.m);
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < b.m; j++)
-			for (int k = 0; k < b.n; k++)
-				c.matr[i][j] += matr[i][k] * b.matr[k][j];
-
-	return c;
-
-
-}
-bool matrix:: operator == (matrix &b) const
+bool matrix::operator == (const matrix& b) const
 {
 	if ((this->m == b.m) && (this->n == b.n))
 	{
@@ -121,67 +125,62 @@ bool matrix:: operator == (matrix &b) const
 				}
 	}
 	else return false;
-
 }
-matrix matrix:: operator =(matrix &b)
+
+matrix matrix::operator + (const matrix& b) const
 {
-	if (*this == b) return *this; else
-	{
-		for (int i = 0; i < n; i++)
+	if ((n != b.columns()) || (m != b.rows())) {
+		cout << "error";
+	}
+	else {
+		matrix c(n, m);
+		for (int i = 0; i < m; ++i) {
+			for (int j = 0; j < n; ++j) {
+				c.matr[i][j] = matr[i][j] + b.matr[i][j];
+			}
+		}
+		return c;
+	}
+}
+
+matrix matrix::operator * (const matrix& b) const
+{
+	if (b.rows() != n) {
+		cout << "error";
+	}
+	else {
+		matrix c(m, b.n);
+		for (int i = 0; i < m; i++)
 		{
+			for (int j = 0; j < b.m; j++) 
+			{
+				for (int k = 0; k < n; k++)
+				{
+					c.matr[i][j] += matr[i][k] * b.matr[k][j];
+				}
+			}
+		}
+		return c;
+	}
+}
+
+matrix& matrix::operator = (const matrix& b)
+{
+	if (&b != this)
+	{
+		for (int i = 0; i < m; i++) {
 			delete[] matr[i];
 		}
 		delete[] matr;
-
-		m = b.m;
-		n = b.n;
-		matr = new double*[n];
-		for (int i = 0; i < n; i++)
-		{
-			matr[i] = new double[m];
+	}
+	m = result.m;
+	n = result.n;
+	matr = new int*[m];
+	for (int i = 0; i < m; i++) {
+		matr[i] = new int[n];
+		for (int j = 0; j < n; j++) {
+			matr[i][j] = b.matr[i][j];
 		}
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < m; j++)
-				matr[i][j] = b.matr[i][j];
-		return *this;
 	}
-
-}
-int matrix::rows()
-{
-	return n;
-}
-int matrix::columns()
-{
-	return m;
-}
-istream& operator >> (istream &in, matrix &c)
-{
-	in >> c.m;
-	in >> c.n;
-	c.matr = new double*[c.n];
-	for (int i = 0; i < c.n; i++)
-	{
-		c.matr[i] = new double[c.m];
-	}
-	for (int i = 0; i < c.n; i++)
-		for (int j = 0; j < c.m; j++)
-			c.matr[i][j] = 0;
-
-	for (int i = 0; i < c.n; i++)
-		for (int j = 0; j < c.m; j++)
-			in >> c.matr[i][j];
-	return in;
-}
-ostream& operator <<(ostream &out, matrix &c)
-{
-
-	out << c.m << "x";
-	out << c.n << "\n";
-	c.print(out);
-	return out;
-}
-double matrix:: elem(int i, int j)
-{
-	return matr[i][j];
+	return *this;
 }
