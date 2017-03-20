@@ -23,22 +23,6 @@ SCENARIO("copy")
 	REQUIRE(a.columns() == b.columns());
 	
 }
-
-SCENARIO("+")
-{
-	matrix a ("matrix.txt");
-	matrix b ("matrix2.txt");
-	matrix c ("matrix3.txt");	
-	REQUIRE(a + b== c);
-}
-
-SCENARIO("*") 
-{
-	matrix a ("matrix1.txt");
-	matrix b ("matrix2.txt");
-	matrix c ("matrix2.txt");
-	REQUIRE(a*b==c);
-}
 SCENARIO("==") 
 {
 	matrix a(3, 3);
