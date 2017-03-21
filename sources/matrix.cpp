@@ -18,7 +18,7 @@ matrix::matrix(int n1, int m1)
 		for (int j = 0; j < m; j++)
 			matr[i][j] = 0;
 };
-matrix::matrix(matrix &ob)
+matrix::matrix(const matrix &ob)
 {
 	m = ob.m;
 	n = ob.n;
@@ -84,7 +84,7 @@ matrix::matrix(std::string name)
 			file >> matr[i][j];
 	file.close();
 }
-matrix matrix:: operator+(matrix b)const
+matrix matrix:: operator+(const matrix b) const
 {
 
 	matrix c(n, m);
@@ -95,7 +95,7 @@ matrix matrix:: operator+(matrix b)const
 	return c;
 
 }
-matrix matrix:: operator*(matrix b)const
+matrix matrix:: operator*(const matrix b) const
 {
 
 	matrix c(n, b.m);
@@ -108,7 +108,7 @@ matrix matrix:: operator*(matrix b)const
 
 
 }
-bool matrix:: operator == (matrix &b) const
+bool matrix:: operator == (const matrix &b) const
 {
 	if ((this->m == b.m) && (this->n == b.n))
 	{
@@ -123,7 +123,7 @@ bool matrix:: operator == (matrix &b) const
 	else return false;
 
 }
-matrix matrix:: operator =(matrix &b)
+matrix& matrix:: operator =(const matrix &b)
 {
 	if (*this == b) return *this; else
 	{
@@ -147,11 +147,11 @@ matrix matrix:: operator =(matrix &b)
 	}
 
 }
-int matrix::rows()
+int matrix::rows() const
 {
 	return n;
 }
-int matrix::columns()
+int matrix::columns() const
 {
 	return m;
 }
@@ -173,7 +173,7 @@ istream& operator >> (istream &in, matrix &c)
 			in >> c.matr[i][j];
 	return in;
 }
-ostream& operator <<(ostream &out, matrix &c)
+ostream& operator <<(ostream &out, const matrix &c)
 {
 
 	out << c.m << "x";
@@ -181,7 +181,7 @@ ostream& operator <<(ostream &out, matrix &c)
 	c.print(out);
 	return out;
 }
-double matrix:: elem(int i, int j)
+double matrix:: elem(int i, int j) const
 {
 	return matr[i][j];
 }
