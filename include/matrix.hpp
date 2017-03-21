@@ -14,17 +14,17 @@ private:
 public:
 	matrix();
 	matrix(int n1, int m1);
-	matrix(matrix& ob);
+	matrix(matrix const& ob);
 	~matrix();
 	void print(ostream &out) const;
 	matrix(string name);
 	matrix operator +(matrix b) const;
 	matrix operator *(matrix b) const;
-	matrix operator =(matrix &b);
+	matrix& operator =(matrix &b);
 	bool operator == (matrix &b) const;
 	friend  ostream& operator <<(ostream &out, matrix &c);
 	friend  istream& operator >> (istream &in, matrix &c);
-	int rows();
-	int columns();
-	double elem(int i, int j);
+	int rows() const;
+	int columns() const;
+	double elem(int i, int j) const;
 };
