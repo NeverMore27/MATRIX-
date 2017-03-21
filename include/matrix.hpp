@@ -18,11 +18,11 @@ public:
 	~matrix();
 	void print(ostream &out) const;
 	matrix(string name);
-	matrix operator +(matrix b) const;
-	matrix operator *(matrix b) const;
-	matrix& operator =(matrix &b);
-	bool operator == (matrix &b) const;
-	friend  ostream& operator <<(ostream &out, matrix &c);
+	matrix operator +(const matrix b) const;
+	matrix operator *(const matrix b) const;
+	matrix& operator =(const matrix &b);
+	bool operator == (const matrix &b) const;
+	friend  ostream& operator <<(ostream &out, const matrix &c);
 	friend  istream& operator >> (istream &in, matrix &c);
 	int rows() const;
 	int columns() const;
