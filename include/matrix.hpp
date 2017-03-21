@@ -17,9 +17,9 @@ public:
 	matrix(matrix const& ob);
 	~matrix();
 	void print(ostream &out) const;
-	matrix(string name);
-	matrix operator +(const matrix b) const;
-	matrix operator *(const matrix b) const;
+	matrix(const string& name);
+	matrix operator +(const matrix& b) const;
+	matrix operator *(const matrix& b) const;
 	matrix& operator =(const matrix &b);
 	bool operator == (const matrix &b) const;
 	friend  ostream& operator <<(ostream &out, const matrix &c);
