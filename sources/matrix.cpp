@@ -51,7 +51,7 @@ void matrix::print(ostream &out)const
 		out << "\n";
 	}
 }
-matrix::matrix(std::string name)
+matrix::matrix(const std::string& name)
 {
 
 	ifstream file(name);
@@ -84,7 +84,7 @@ matrix::matrix(std::string name)
 			file >> matr[i][j];
 	file.close();
 }
-matrix matrix:: operator+(const matrix b) const
+matrix matrix:: operator+(const matrix& b) const
 {
 
 	matrix c(n, m);
@@ -95,7 +95,7 @@ matrix matrix:: operator+(const matrix b) const
 	return c;
 
 }
-matrix matrix:: operator*(const matrix b) const
+matrix matrix:: operator*(const matrix& b) const
 {
 
 	matrix c(n, b.m);
